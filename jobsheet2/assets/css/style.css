@@ -127,12 +127,17 @@ td button {
     font-size: 0.85rem;
 }
 
-td button:first-of-type {
+td button.btn-edit {
     background-color: #f0ad4e;
     color: #fff;
 }
 
-td button:last-of-type {
+td button.btn-detail {
+    background-color: #5bc0de;
+    color: #fff;
+}  
+
+td button.btn-delete {
     background-color: #d9534f;
     color: #fff;
 }
