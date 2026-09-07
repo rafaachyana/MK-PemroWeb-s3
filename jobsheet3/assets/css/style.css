@@ -13,7 +13,7 @@ body {
 }
 
 a {
-    color: #1d5b8a;
+    color: #024313;
     text-decoration: none;
 }
 
@@ -23,7 +23,7 @@ a:hover {
 
 /* ===== Header & Navbar (Flexbox) ===== */
 header {
-    background-color: #1d5b8a;
+    background-color: #024313;
     color: #fff;
     padding: 1rem 1.5rem;
     display: flex;
@@ -64,13 +64,13 @@ section {
 
 section h2 {
     margin-bottom: 1rem;
-    color: #1d5b8a;
+    color: #024313;
 }
 
 /* ===== Kartu Statistik (CSS Grid) ===== */
 main section:nth-of-type(2) {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
 }
 
@@ -90,7 +90,7 @@ main section:nth-of-type(2) article h3 {
 main section:nth-of-type(2) article p {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #1d5b8a;
+    color: #024313;
 }
 
 /* ===== Tabel ===== */
@@ -106,7 +106,7 @@ th, td {
 }
 
 thead {
-    background-color: #1d5b8a;
+    background-color: #024313;
     color: #fff;
 }
 
@@ -127,12 +127,17 @@ td button {
     font-size: 0.85rem;
 }
 
-td button:first-of-type {
+td button.btn-edit {
     background-color: #f0ad4e;
     color: #fff;
 }
 
-td button:last-of-type {
+td button.btn-detail {
+    background-color: #5bc0de;
+    color: #fff;
+}  
+
+td button.btn-delete {
     background-color: #d9534f;
     color: #fff;
 }
@@ -160,7 +165,7 @@ form select {
 }
 
 form button[type="submit"] {
-    background-color: #1d5b8a;
+    background-color: #024313;
     color: #fff;
     border: none;
     padding: 0.6rem 1.5rem;
@@ -170,7 +175,21 @@ form button[type="submit"] {
 }
 
 form button[type="submit"]:hover {
-    background-color: #164869;
+    background-color: #014514;
+}
+
+/* ===== Blok Kode ===== */
+pre, code {
+    font-family: "Consolas", "Courier New", monospace;
+    background-color: #272822;
+    color: #f8f8f2;
+    border-radius: 6px;
+}
+
+pre {
+    padding: 1rem;
+    overflow-x: auto; /* Scrollbar horizontal khusus blok kode */
+    white-space: pre;  /* Mempertahankan spasi dan baris baru */
 }
 
 /* ===== Footer ===== */
@@ -181,64 +200,20 @@ footer {
     font-size: 0.9rem;
 }
 
-/* ===== Tabel Responsif ===== */
-.table-responsive {
-    overflow-x: auto;
+/* untuk layar monitor sangat lebar,menjadi lebih lebar khusus di breakpoint ini. */
+@media (min-width: 1400px) {
+    main {
+        max-width: 1300px; 
+    }
+
+    main section:nth-of-type(2) {
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
-/* ===== Hamburger Menu (checkbox hack) ===== */
-.nav-toggle {
-    display: none;
-}
-
-.nav-toggle-label {
-    display: none;
-    font-size: 1.6rem;
-    color: #fff;
-    cursor: pointer;
-}
-
-/* ===== Responsive Breakpoints ===== */
-
-/* Tablet ke bawah */
-@media (max-width: 768px) {
+/*Ubah breakpoint tablet dari 768px menjadi 900px, lalu amati di lebar layar berapa susunan kartu berubah — buktikan bahwa breakpoint memang bisa disesuaikan bebas sesuai kebutuhan desain.*/
+@media (max-width: 900px) {
     main section:nth-of-type(2) {
         grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Mobile */
-@media (max-width: 480px) {
-    header {
-        position: relative;
-    }
-
-    .nav-toggle-label {
-        display: block;
-    }
-
-    header nav {
-        display: none;
-        width: 100%;
-        order: 3;
-        margin-top: 1rem;
-    }
-
-    .nav-toggle:checked ~ nav {
-        display: block;
-    }
-
-    header nav ul {
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-
-    main section:nth-of-type(2) {
-        grid-template-columns: 1fr;
-    }
-
-    form input,
-    form select {
-        max-width: 100%;
     }
 }
