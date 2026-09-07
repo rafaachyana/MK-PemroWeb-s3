@@ -47,6 +47,18 @@ header nav a {
     font-weight: 500;
 }
 
+/* ===== Hamburger Menu (checkbox hack) ===== */
+.nav-toggle {
+    display: none;
+}
+
+.nav-toggle-label {
+    display: none;
+    font-size: 1.6rem;
+    color: #fff;
+    cursor: pointer;
+}
+
 /* ===== Main Layout ===== */
 main {
     max-width: 1000px;
@@ -94,6 +106,10 @@ main section:nth-of-type(2) article p {
 }
 
 /* ===== Tabel ===== */
+.table-responsive {
+    overflow-x: auto;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -188,8 +204,8 @@ pre, code {
 
 pre {
     padding: 1rem;
-    overflow-x: auto; /* Scrollbar horizontal khusus blok kode */
-    white-space: pre;  /* Mempertahankan spasi dan baris baru */
+    overflow-x: auto; 
+    white-space: pre;  
 }
 
 /* ===== Footer ===== */
@@ -200,10 +216,11 @@ footer {
     font-size: 0.9rem;
 }
 
-/* untuk layar monitor sangat lebar,menjadi lebih lebar khusus di breakpoint ini. */
+/*Media Queries / Responsive Breakpoints*/
+/* 1. Layar monitor sangat lebar */
 @media (min-width: 1400px) {
     main {
-        max-width: 1300px; 
+        max-width: 1300px; /* Melebarkan kontainer utama */
     }
 
     main section:nth-of-type(2) {
@@ -211,9 +228,46 @@ footer {
     }
 }
 
-/*Ubah breakpoint tablet dari 768px menjadi 900px, lalu amati di lebar layar berapa susunan kartu berubah — buktikan bahwa breakpoint memang bisa disesuaikan bebas sesuai kebutuhan desain.*/
+/* 2. Layar Tablet */
 @media (max-width: 900px) {
     main section:nth-of-type(2) {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* 3. Layar Mobile (Wajib agar Hamburger Menu dan Form Berjalan Baik di HP) */
+@media (max-width: 480px) {
+    header {
+        position: relative;
+    }
+
+    .nav-toggle-label {
+        display: block;
+    }
+
+    header nav {
+        display: none;
+        width: 100%;
+        order: 3;
+        margin-top: 1rem;
+    }
+
+    .nav-toggle:checked ~ nav {
+        display: block;
+    }
+
+    header nav ul {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    /* Ubah Grid Statistik jadi 1 baris ke bawah */
+    main section:nth-of-type(2) {
+        grid-template-columns: 1fr;
+    }
+
+    form input,
+    form select {
+        max-width: 100%;
     }
 }
