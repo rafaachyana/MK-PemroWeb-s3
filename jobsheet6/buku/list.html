@@ -27,99 +27,26 @@
             <h2>Daftar Buku</h2>
             <p style="margin-bottom: 1rem;">
                 <input type="text" id="search-input" placeholder="Cari judul buku..." style="padding: 0.5rem 0.75rem; width: 100%; max-width: 300px; border: 1px solid #ccc; border-radius: 4px;">
+                <button type="button" id="btn-reload" style="padding: 0.5rem 0.75rem; cursor: pointer;">Muat Ulang</button>
             </p>
             <p id="table-counter" style="margin-bottom: 0.75rem; font-weight: 500; color: #55677a;"></p>
+            <p id="loading-indicator" style="display: none; color: #55677a; font-style: italic;">Memuat data buku...</p>
+
             <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Judul</th>
-                        <th>Pengarang</th>
-                        <th>Tahun</th>
-                        <th>Stok</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Laskar Pelangi</td>
-                        <td>Andrea Hirata</td>
-                        <td>2005</td>
-                        <td>4</td>
-                        <td>
-                            <button type="button" class="btn-edit">Edit</button>
-                            <button type="button" class="btn-detail">Detail</button>
-                            <button type="button" class="btn-delete">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Bumi Manusia</td>
-                        <td>Pramoedya Ananta Toer</td>
-                        <td>1980</td>
-                        <td>2</td>
-                        <td>
-                            <button type="button" class="btn-edit">Edit</button>
-                            <button type="button" class="btn-detail">Detail</button>
-                            <button type="button" class="btn-delete">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Negeri 5 Menara</td>
-                        <td>Ahmad Fuadi</td>
-                        <td>2009</td>
-                        <td>0</td>
-                        <td>
-                            <button type="button" class="btn-edit">Edit</button>
-                            <button type="button" class="btn-detail">Detail</button>
-                            <button type="button" class="btn-delete">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Filosofi Teras</td>
-                        <td>Henry Manampiring</td>
-                        <td>2018</td>
-                        <td>5</td>
-                        <td>
-                            <button type="button" class="btn-edit">Edit</button>
-                            <button type="button" class="btn-detail">Detail</button>
-                            <button type="button" class="btn-delete">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Ronggeng Dukuh Paruk</td>
-                        <td>Ahmad Tohari</td>
-                        <td>1982</td>
-                        <td>1</td>
-                        <td>
-                            <button type="button" class="btn-edit">Edit</button>
-                            <button type="button" class="btn-detail">Detail</button>
-                            <button type="button" class="btn-delete">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1Detik</td>
-                        <td>Sini</td>
-                        <td>2019</td>
-                        <td>7</td>
-                        <td>
-                            <button type="button" class="btn-edit">Edit</button>
-                            <button type="button" class="btn-detail">Detail</button>
-                            <button type="button" class="btn-delete">Hapus</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Castle</td>
-                        <td>Jeong Yeon</td>
-                        <td>2019</td>
-                        <td>2</td>
-                        <td>
-                            <button type="button" class="btn-edit">Edit</button>
-                            <button type="button" class="btn-detail">Detail</button>
-                            <button type="button" class="btn-delete">Hapus</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Judul</th>
+                            <th>Pengarang</th>
+                            <th>Tahun</th>
+                            <th>Stok</th>
+                            <th>Kategori</th> <!-- Nomor 3: Penambahan Header Kolom Kategori -->
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="buku-list"> <!-- Nomor 3: Elemen tbody Kosong yang Akan Diisi Otomatis via JS -->
+                    </tbody>
+                </table>
             </div>
         </section>
     </main>

@@ -37,5 +37,11 @@ async function muatDaftarBuku() {
         loading.style.display = "none";
     }
 }
-
-document.addEventListener("DOMContentLoaded", muatDaftarBuku);
+// 1. muat ulang daftar buku saat halaman dimuat
+document.addEventListener("DOMContentLoaded", () => {
+    muatDaftarData("../data/buku.json", ["judul", "pengarang", "tahun", "stok"]);
+    const btnReload = document.getElementById("btn-reload");
+    if (btnReload) {
+        btnReload.addEventListener("click", muatDaftarBuku);
+    }
+});

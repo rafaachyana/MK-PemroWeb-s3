@@ -1,4 +1,4 @@
-// ===== Hamburger menu (JS-driven, menggantikan checkbox hack) =====
+// ===== Hamburger menu (JS-driven) =====
 function initNavToggle() {
     const toggleBtn = document.getElementById("nav-toggle-btn");
     const nav = document.querySelector("header nav");
@@ -9,10 +9,7 @@ function initNavToggle() {
     });
 }
 
-// ===== Konfirmasi hapus (front-end only, belum ke server) =====
-// Memakai event delegation di document karena baris tabel sekarang
-// dirender dinamis via fetch (lihat buku.js/anggota.js) sehingga
-// tombol .btn-hapus belum tentu ada saat DOMContentLoaded.
+//4: Konfirmasi Hapus Menggunakan Event Delegation 
 function initHapusConfirm() {
     document.addEventListener("click", function (e) {
         const btn = e.target.closest(".btn-hapus");
@@ -23,11 +20,14 @@ function initHapusConfirm() {
         const yakin = confirm("Yakin ingin menghapus \"" + nama + "\"?");
         if (yakin && row) {
             row.remove();
+            if (typeof updateTableCounter === "function") {
+                updateTableCounter();
+            }
         }
     });
 }
 
-// ===== 3. Filter Kolom Spesifik & Counter =====
+// ===== Filter Kolom Spesifik =====
 function initTableFilter() {
     const input = document.getElementById("search-input");
     const table = document.querySelector(".table-responsive table");
@@ -48,7 +48,7 @@ function initTableFilter() {
     updateTableCounter();
 }
 
-// ===== 4. Counter Baris Tabel =====
+// ===== Counter Baris Tabel =====
 function updateTableCounter() {
     const table = document.querySelector(".table-responsive table");
     const counterElement = document.getElementById("table-counter");
@@ -61,8 +61,7 @@ function updateTableCounter() {
     counterElement.textContent = `Menampilkan ${visibleRows} dari ${totalRows} ${labelItem}`;
 }
 
-
-// ===== Validasi form (client-side) =====
+// ===== Helper Tampilan Error Form =====
 function tampilkanError(input, pesan) {
     hapusError(input);
     const span = document.createElement("span");
@@ -78,15 +77,11 @@ function hapusError(input) {
     }
 }
 
-// ===== 5: Refactor Validasi Form Menggunakan Array & forEach =====
 function initValidasiForm() {
     const form = document.getElementById("form-tambah") || document.querySelector("main form");
     if (!form) return;
-
     form.addEventListener("submit", function (e) {
         let valid = true;
-
-        // Daftar aturan validasi field dikemas ke dalam array
         const rules = [
             { 
                 selector: "[name='judul'], [name='nama']", 
@@ -118,11 +113,9 @@ function initValidasiForm() {
                         : null;
                 } 
             },
-            // ===== 1: VALIDASI FIELD ISBN (ANGKA & STRIP) =====
             {
                 selector: "[name='isbn']",
                 validate: (val) => {
-                    // Hanya menerima angka dan tanda hubung (-), opsional jika diisi
                     if (val && !/^[0-9-]+$/.test(val)) {
                         return "ISBN hanya boleh berisi angka dan tanda hubung (-).";
                     }
@@ -130,7 +123,6 @@ function initValidasiForm() {
                 }
             }
         ];
-        // 5: Perulangan forEach untuk memvalidasi setiap aturan pada array rules
         rules.forEach(rule => {
             const input = form.querySelector(rule.selector);
             if (!input) return; 
@@ -153,10 +145,66 @@ function initValidasiForm() {
         }
     });
 }
-document.addEventListener("DOMContentLoaded", function () {
+
+//2: Fungsi Generik Fetch Data Asinkron
+async function muatDaftarData(urlJson, keys) {
+    const tbody = document.querySelector(".table-responsive table tbody");
+    const loading = document.getElementById("loading-indicator");
+    if (!tbody) return;
+
+    if (loading) loading.style.display = "block";
+    tbody.innerHTML = "";
+
+    try {
+        //5: Simulasi Delay Jaringan (Async/Await & Promise) 
+        await new Promise((resolve) => setTimeout(resolve, 3000));
+
+        const res = await fetch(urlJson);
+        if (!res.ok) {
+            throw new Error("Gagal mengambil data (status " + res.status + ")");
+        }
+        const dataList = await res.json();
+
+        dataList.forEach((item) => {
+            const tr = document.createElement("tr");
+            
+            // Generate sel tabel (td) berdasarkan kunci properti yang dikirim
+            let tdHTML = keys.map(key => `<td>${item[key] ?? '-'}</td>`).join("");
+            
+            // Tambahkan kolom Aksi
+            tdHTML += `<td>
+                <button type="button" class="btn-edit">Edit</button> 
+                <button type="button" class="btn-hapus">Hapus</button>
+            </td>`;
+            
+            tr.innerHTML = tdHTML;
+            tbody.appendChild(tr);
+        });
+        
+        if (typeof updateTableCounter === "function") {
+            updateTableCounter();
+        }
+    } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="${keys.length + 1}">Gagal memuat data: ${err.message}</td></tr>`;
+    } finally {
+        if (loading) loading.style.display = "none";
+    }
+}
+
+//1 & 3: Inisialisasi Aplikasi saat DOM Ready 
+document.addEventListener("DOMContentLoaded", () => {
     initNavToggle();
     initHapusConfirm();
     initTableFilter();
     initValidasiForm();
-});
 
+    // Memuat data buku beserta kunci 'kategori'
+    muatDaftarData("../data/buku.json", ["judul", "pengarang", "tahun", "stok", "kategori"]);
+    
+    const btnReload = document.getElementById("btn-reload");
+    if (btnReload) {
+        btnReload.addEventListener("click", () => {
+            muatDaftarData("../data/buku.json", ["judul", "pengarang", "tahun", "stok", "kategori"]);
+        });
+    }
+});

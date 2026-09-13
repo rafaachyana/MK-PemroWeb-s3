@@ -37,4 +37,6 @@ async function muatDaftarAnggota() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", muatDaftarAnggota);
+document.addEventListener("DOMContentLoaded", () => {
+    muatDaftarData("../data/anggota.json", ["no_anggota", "nama", "alamat", "no_hp"]);
+});
