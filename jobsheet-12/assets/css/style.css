@@ -1,0 +1,256 @@
+ /* =====================================================
+   SIMPUS-Mini - style.css
+   Jobsheet 2: styling dasar (box model, Flexbox, Grid)
+   ===================================================== */
+
+/* 1. Reset & variabel */
+:root {
+  --warna-utama: #166534;
+  --warna-utama-gelap: #14532d;
+  --warna-header: #166534;
+  --warna-teks: #1e293b;
+  --warna-redup: #64748b;
+  --warna-garis: #e2e8f0;
+  --warna-latar: #f1f5f9;
+  --warna-bahaya: #dc2626;
+  --radius: 8px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--warna-teks);
+  background: var(--warna-latar);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3 { line-height: 1.25; margin: 0 0 .75rem; }
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.35rem; margin-top: 2rem; }
+a { color: var(--warna-utama); }
+
+.container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 1rem; }
+
+/* 2. Header & navbar (Flexbox) */
+.site-header { background: var(--warna-header); color: #fff; }
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: .9rem;
+  padding-bottom: .9rem;
+}
+.logo { color: #fff; font-size: 1.4rem; font-weight: 700; text-decoration: none; }
+.site-header nav ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; gap: .25rem; flex-wrap: wrap;
+}
+.site-header nav a {
+  display: block; padding: .45rem .8rem; color: #cbd5e1;
+  text-decoration: none; border-radius: var(--radius);
+}
+.site-header nav a:hover, .site-header nav a.active { background: var(--warna-utama); color: #fff; }
+
+
+/* 3. Konten utama */
+main { flex: 1; width: 100%; padding-top: 2rem; padding-bottom: 2rem; }
+
+.hero {
+  background: #ffffff;
+  color: #1e293b;
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 2px 5px rgba(15, 23, 42, 0.08);
+}
+
+.hero h1 {
+  color: #064e24;
+}
+
+.hero p {
+  color: #1e293b;
+}
+
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 1.25rem;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+}
+
+
+/* 4. Kartu statistik (CSS Grid) */
+.card-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.card {
+  background: #fff; border: 1px solid var(--warna-garis); border-radius: var(--radius);
+  padding: 1.25rem; box-shadow: 0 1px 2px rgba(15, 23, 42, .06);
+}
+.card h3 { font-size: 1rem; color: var(--warna-redup); font-weight: 600; margin: 0; }
+.card-angka { margin: .25rem 0 0; font-size: 2.25rem; font-weight: 700; color: var(--warna-utama); }
+
+/* 5. Tabel */
+.table-wrap { background: #fff; border: 1px solid var(--warna-garis); border-radius: var(--radius); }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: .7rem .9rem; text-align: left; border-bottom: 1px solid var(--warna-garis); }
+thead th { background: var(--warna-header); color: #fff; font-weight: 600; }
+tbody tr:nth-child(even) { background: #f8fafc; }
+tbody tr:hover { background: #ccfbf1; }
+td.aksi { white-space: nowrap; }
+
+/* 6. Tombol */
+.btn {
+  display: inline-block; padding: .55rem 1.1rem; border: 1px solid var(--warna-utama);
+  background: var(--warna-utama); color: #fff; border-radius: var(--radius);
+  font-size: .95rem; font-family: inherit; text-decoration: none; cursor: pointer;
+}
+.btn:hover { background: var(--warna-utama-gelap); }
+.btn-outline { background: transparent; color: var(--warna-utama); }
+.btn-outline:hover { background: #ccfbf1; }
+.btn-sm { padding: .25rem .65rem; font-size: .85rem; }
+.btn-danger { background: var(--warna-bahaya); border-color: var(--warna-bahaya); }
+.btn-danger:hover { background: #b91c1c; }
+
+/* 7. Form */
+form {
+  background: #fff; border: 1px solid var(--warna-garis); border-radius: var(--radius);
+  padding: 1.5rem; max-width: 560px;
+}
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-weight: 600; margin-bottom: .3rem; }
+input[type="text"], input[type="number"], input[type="tel"], input[type="email"], input[type="password"],
+input[type="search"], select, textarea {
+  width: 100%; padding: .55rem .7rem; font: inherit; color: inherit;
+  border: 1px solid #cbd5e1; border-radius: var(--radius); background: #fff;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--warna-utama); outline-offset: 1px; border-color: var(--warna-utama);
+}
+.form-actions { display: flex; gap: .6rem; margin-top: 1.25rem; }
+
+/* 8. Footer */
+.site-footer {
+  background: #f1f5f9;
+  color: #64748b;
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
+  border-top: 1px solid #e2e8f0;
+  margin-top: auto;
+}
+
+/* =====================================================
+   Jobsheet 3 (disempurnakan Jobsheet 5): Responsif, hamburger via JS toggle class
+   Breakpoint: 480px (mobile), 768px (tablet), 1024px (desktop)
+   ===================================================== */
+.menu-btn { display: none; background: transparent; font-family: inherit; }
+
+.table-wrap { overflow-x: auto; }          /* tabel scroll horizontal di layar sempit */
+table { min-width: 560px; }
+
+@media (max-width: 767px) {
+  .header-inner { flex-wrap: wrap; }
+  .menu-btn {
+    display: block; cursor: pointer; font-size: 1.6rem; line-height: 1;
+    padding: .2rem .6rem; border: 1px solid #475569; border-radius: var(--radius); color: #fff;
+  }
+  .site-header nav { display: none; width: 100%; order: 3; margin-top: .75rem; }
+  .site-header nav.open { display: block; }
+  .site-header nav ul { flex-direction: column; }
+
+  .card-grid { grid-template-columns: 1fr; }
+  .section-head { flex-direction: column; align-items: flex-start; }
+  .hero { padding: 1.5rem 1rem; }
+  .hero h1 { font-size: 1.5rem; }
+  form { max-width: 100%; padding: 1rem; }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 1.4rem; }
+  .form-actions { flex-direction: column; }
+  .form-actions .btn { text-align: center; }
+}
+@media (min-width: 1024px) {
+  .container { padding: 0 1.5rem; }
+}
+
+/* =====================================================
+   Jobsheet 4: komponen halaman rancangan UX baru
+   ===================================================== */
+.auth-box { max-width: 420px; margin: 1rem auto; }
+.auth-box form { max-width: 100%; }
+.shortcut { display: flex; gap: .6rem; flex-wrap: wrap; }
+.toolbar { display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.toolbar input, .toolbar select { max-width: 320px; }
+
+/* =====================================================
+   Jobsheet 5: state interaktif (validasi, filter, hapus)
+   ===================================================== */
+.error { display: block; color: var(--warna-bahaya); font-size: .85rem; margin-top: .25rem; }
+input.invalid, select.invalid, textarea.invalid { border-color: var(--warna-bahaya); }
+tr.hilang { opacity: 0; transition: opacity .3s; }
+.sukses-box { background: #dcfce7; border: 1px solid #86efac; color: #166534; padding: .7rem 1rem; border-radius: var(--radius); margin-bottom: 1rem; }
+
+/* =====================================================
+   Jobsheet 6: indikator loading & error fetch
+   ===================================================== */
+.status { color: var(--warna-redup); margin: 0 0 .75rem; min-height: 1.5rem; }
+.status.loading::before {
+  content: ""; display: inline-block; width: 1rem; height: 1rem; margin-right: .5rem;
+  border: 2px solid var(--warna-garis); border-top-color: var(--warna-utama);
+  border-radius: 50%; vertical-align: -.2rem; animation: putar .7s linear infinite;
+}
+.status.gagal { color: var(--warna-bahaya); font-weight: 600; }
+@keyframes putar { to { transform: rotate(360deg); } }
+
+/* =====================================================
+   Jobsheet 7: pesan flash (sukses / error) dari PHP
+   ===================================================== */
+.alert { padding: .75rem 1rem; border-radius: var(--radius); margin-bottom: 1rem; border: 1px solid; }
+.alert ul { margin: 0; padding-left: 1.1rem; }
+.alert-sukses { background: #dcfce7; border-color: #86efac; color: #166534; }
+.alert-error  { background: #fee2e2; border-color: #fca5a5; color: #991b1b; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+/* =====================================================
+   Jobsheet 9: aksi inline, pencarian server-side, pagination
+   ===================================================== */
+.inline-form { display: inline; background: none; border: 0; padding: 0; max-width: none; }
+form.form-cari {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem;
+  max-width: none; margin-bottom: 1rem; padding: .75rem 1rem;
+}
+.form-cari input[type="search"] { flex: 1 1 220px; width: auto; }
+.form-cari select { flex: 1 1 220px; width: auto; }
+.pagination { display: flex; gap: .3rem; flex-wrap: wrap; margin: 1rem 0 .5rem; }
+.pagination a {
+  padding: .35rem .75rem; border: 1px solid var(--warna-garis); border-radius: var(--radius);
+  background: #fff; text-decoration: none; color: var(--warna-utama);
+}
+.pagination a.aktif { background: var(--warna-utama); color: #fff; border-color: var(--warna-utama); }
+
+/* =====================================================
+   Jobsheet 12: status peminjaman
+   ===================================================== */
+.badge { display: inline-block; padding: .1rem .6rem; border-radius: 999px; font-size: .8rem; font-weight: 600; }
+.badge-dipinjam { background: #dbeafe; color: #1e40af; }
+.badge-selesai  { background: #dcfce7; color: #166534; }
+.badge-telat    { background: #fee2e2; color: #991b1b; }
+.tab-status { display: flex; gap: .5rem; flex-wrap: wrap; margin: 0 0 1rem; }
+.tab-status a { padding: .35rem .9rem; border-radius: 999px; border: 1px solid var(--warna-garis); background: #fff; text-decoration: none; }
+.tab-status a.aktif { background: var(--warna-utama); color: #fff; border-color: var(--warna-utama); }
+
+.btn-detail { background: #2563eb; border-color: #2563eb; color: #fff; }
+.btn-detail:hover { background: #1d4ed8; }
+
+@media (max-width: 760px) { .card-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 420px) { .card-grid { grid-template-columns: 1fr; } }
